@@ -76,7 +76,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework_swagger',
     'django_filters',
-    'admin',
     'session',
     'config',
     'service',
@@ -107,13 +106,20 @@ ROOT_URLCONF = 'rendering_resource_manager_service.service.urls'
 WSGI_APPLICATION = 'rendering_resource_manager_service.service.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/1.7/ref/config/#databases
-
+db_engine = os.getenv('DATABASE_ENGINE', 'django.db.backends.mysql')
+db_name = os.getenv('DATABASE_NAME', os.path.join(BASE_DIR + '/tests', 'db.sqlite3'))
+db_user = os.getenv('DATABASE_USER')
+db_pass = os.getenv('DATABASE_PASSWORD')
+db_host = os.getenv('DATABASE_HOST')
+db_port = os.getenv('DATABASE_PORT')
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'OPTIONS': {'timeout': 20},
-        'NAME': os.path.join(BASE_DIR + '/tests', 'db.sqlite3'),
+        'ENGINE': db_engine,
+        'NAME': db_name,
+        'USER': db_user,
+        'PASSWORD': db_pass,
+        'HOST': db_host,
+        'PORT': db_port,
     }
 }
 
